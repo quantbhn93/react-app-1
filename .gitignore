@@ -3,3 +3,8 @@
 
 # node modules
 /node_modules
+
+#generated dist file
+/dist
+
+/npm-debug.log
