@@ -6,28 +6,39 @@ import Home from "./components/Home";
 
 class App extends React.Component {
     constructor(props) {
-      super(props);
+        super();
+        this.state = ({
+            homelink: "Home"
+        });
+    }
+
+    onGreet () {
+        alert("Hello");
+    }
+
+    onChangeLinkName (newName) {
+        this.setState({
+            homelink: newName
+        });
     }
 
     render() {
-
-        var user = {
-            name: "Quan",
-            hobbies: ["coffee" , "reading"]
-        };
-
         return (
             <div className="container">
               <div className="row">
                   <div className="col-xs-10 col-xs-offset-1">
-                    <Header />
+                    <Header homelink={this.state.homelink}/>
                   </div>
               </div>
               <div className="row">
                   <div className="col-xs-10 col-xs-offset-1">
-                    <Home name={"Max"} age={25} user={user}>
-                        <p>This is a paragraph</p>
-                    </Home>
+                    <Home
+                         name={"Max"}
+                          age={25}
+                          greet={this.onGreet}
+                          changeLink={this.onChangeLinkName.bind(this)}
+                          initiallinkname={this.state.homelink}
+                    />
                   </div>
               </div>
             </div>
