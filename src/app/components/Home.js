@@ -32,6 +32,8 @@ export default class Home extends React.Component {
         console.log("Component will receive props ", newProps);
     }
 
+    // return false to prevent rendering
+    // run before rendering, after receiving new props or state
     shouldComponentUpdate (nextProps, nextState) {
         console.log("should compoenent update ",nextProps, nextState);
         if (nextState.status === 1) {
@@ -40,14 +42,19 @@ export default class Home extends React.Component {
         return true;
     }
 
+    // run when 'shouldComponentUpdate' return true
+    // run before rendering, after receiving new props or state
     componentWillUpdate (nextProps, nextState) {
         console.log("component will update ",nextProps, nextState);
     }
 
+    // run after rendering
+    // after compoenet's updates are flushed to DOM
     componentDidUpdate (prevProps, prevState) {
         console.log("component did update ",prevProps, prevState);
     }
 
+    // run immediately before removing component from DOM 
     componentWillUnmount () {
         console.log("Component will unmount");
     }
