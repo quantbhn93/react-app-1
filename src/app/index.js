@@ -24,6 +24,7 @@ const BasicExample = () => (
       <Route path="/topics" component={Topics} />
     </div>
   </Router>
+  
 );
 
 const Home = () => (
