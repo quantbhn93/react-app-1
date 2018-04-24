@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build",
-    "build": "webpack -d && cp src/index.html dist/index.html && webpack-dev-server --content-base src/ --inline --hot",
+    "build": "webpack -d && cp src/index.html dist/index.html && webpack-dev-server --content-base src/ --inline --hot --history-api-fallback",
     "build-prod": "webpack -p && cp src/index.html dist/index.html"
   },
   "repository": {
@@ -29,5 +29,8 @@
     "react-dom": "^16.2.0",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.10.1"
+  },
+  "dependencies": {
+    "react-router": "^4.2.0"
   }
 }

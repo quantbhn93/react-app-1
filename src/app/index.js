@@ -1,67 +1,110 @@
-import React from 'react';
-import { render } from 'react-dom';
+import React from "react";
+import {render} from "react-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-import {Header} from "./components/Header";
-import Home from "./components/Home";
+const BasicExample = () => (
+  <Router>
+    <div>
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/about">About</Link>
+        </li>
+        <li>
+          <Link to="/topics">Topics</Link>
+        </li>
+      </ul>
 
-class App extends React.Component {
-    constructor(props) {
-        super();
-        this.state = ({
-            homelink: "Home",
-            homeMounted : true
-        });
-    }
+      <hr />
 
-    onGreet () {
-        alert("Hello");
-    }
+      <Route exact path="/" component={Home} />
+      <Route path="/about" component={About} />
+      <Route path="/topics" component={Topics} />
+    </div>
+  </Router>
+);
 
-    onChangeLinkName (newName) {
-        this.setState({
-            homelink: newName
-        });
-    }
+const Home = () => (
+  <div>
+    <h2>Home</h2>
+  </div>
+);
 
-    onChangeHomeMounted () {
-        this.setState({
-            homeMounted: !this.state.homeMounted
-        });
-    }
+const About = () => (
+  <div>
+    <h2>About</h2>
+  </div>
+);
 
-    render() {
-        let homeCmp = "";
-        if (this.state.homeMounted) {
-        homeCmp =  (
-               <Home
-                 name={"Max"}
-                  age={25}
-                  greet={this.onGreet}
-                  changeLink={this.onChangeLinkName.bind(this)}
-                  initiallinkname={this.state.homelink}
-                 />
-            );
-        }
-        return (
-            <div className="container">
-              <div className="row">
-                  <div className="col-xs-10 col-xs-offset-1">
-                    <Header homelink={this.state.homelink}/>
-                  </div>
-              </div>
-              <div className="row">
-                  <div className="col-xs-10 col-xs-offset-1">
-                      {homeCmp}
-                  </div>
-              </div>
-              <div className="row">
-                  <div className="col-xs-10 col-xs-offset-1">
-                      <button onClick={this.onChangeHomeMounted.bind(this)}>(Un)Mount Home Compoenet</button>
-                  </div>
-              </div>
-            </div>
-        );
-    }
-}
+const Topics = ({ match }) => (
+  <div>
+    <h2>Topics</h2>
+    <ul>
+      <li>
+        <Link to={`${match.url}/rendering`}>Rendering with React</Link>
+      </li>
+      <li>
+        <Link to={`${match.url}/components`}>Components</Link>
+      </li>
+      <li>
+        <Link to={`${match.url}/props-v-state`}>Props v. State</Link>
+      </li>
+    </ul>
 
-render(<App/>, window.document.getElementById('app'));
+    <Route path={`${match.url}/:topicId`} component={Topic} />
+    <Route
+      exact
+      path={match.url}
+      render={() => <h3>Please select a topic.</h3>}
+    />
+  </div>
+);
+
+const Topic = ({ match }) => (
+  <div>
+    <h3>{match.params.topicId}</h3>
+  </div>
+);
+
+export default BasicExample;
+
+render(<BasicExample/>, window.document.getElementById('app'));
+
+
+// import React from "react";
+// import {render} from "react-dom";
+// // import {Router, Route, browserHistory} from "react-router";
+// // import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+// import {Switch, BrowserRouter, Route, Link } from 'react-router-dom'
+//
+// import {Root} from "./components/Root";
+// import {Home} from "./components/Home";
+// import {User} from "./components/User";
+//
+// class App extends React.Component {
+//     render() {
+//         return (
+//             <BrowserRouter>
+//                 <div>
+//                     <ul>
+//                       <li>
+//                         <Link to="/home">Home</Link>
+//                       </li>
+//                       <li>
+//                         <Link to="/user">User</Link>
+//                       </li>
+//                     </ul>
+//
+//                     <Switch>
+//                         <Route path={"user"} component={User} />
+//                         <Route path={"home"} component={Home} />
+//                     </Switch>
+//                 </div>
+//             </BrowserRouter>
+//         );
+//     }
+// }
+//
+// render(<App/>, window.document.getElementById('app'));
